@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_diary_app/freelance_list.dart';
+import 'package:freelance_app/freelance_list.dart';
 
 class CardWork extends StatelessWidget {
   int index;

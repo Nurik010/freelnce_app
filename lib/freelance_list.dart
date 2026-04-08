@@ -1,4 +1,4 @@
-import 'package:my_diary_app/freelance_model.dart';
+import 'package:freelance_app/freelance_model.dart';
 
 List<Freelance> freelance = [
     Freelance(

@@ -5,6 +5,9 @@ class Freelance {
   final String deadline;
   final String hardlevel;
 
-
   Freelance(this.title, this.salary, this.preview, this.deadline, this.hardlevel);
+
+
+
+
 }

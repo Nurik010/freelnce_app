@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_diary_app/freelance_list.dart';
-import 'package:my_diary_app/preferences.dart';
-import 'package:my_diary_app/screens/work_detail_screen.dart';
-import 'package:my_diary_app/widgets/card_work.dart';
+import 'package:freelance_app/freelance_list.dart';
+import 'package:freelance_app/preferences.dart';
+import 'package:freelance_app/screens/work_detail_screen.dart';
+import 'package:freelance_app/widgets/card_work.dart';
 
 class ListWork extends StatefulWidget {
   const ListWork({super.key});
@@ -20,10 +20,12 @@ class _ListWorkState extends State<ListWork> {
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             key: Key(freelance[index].title),
-            onDismissed: (direction) {
+            onDismissed: (direction) async {
               setState(() {
                 freelance.removeAt(index);
               });
+              await StorageService.saveAll();
+              
             },
             confirmDismiss: (direction) async {
               return await showDialog(
@@ -36,11 +38,15 @@ class _ListWorkState extends State<ListWork> {
                     ),
                     actions: [
                       TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
+                        onPressed: () async{ 
+                          Navigator.of(context).pop(false);
+                          },
                         child: Text('Отмена'),
                       ),
                       TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
+                        onPressed: () async{
+                          Navigator.of(context).pop(true);
+                          },
                         child: Text('Удалить'),
                       ),
                     ],

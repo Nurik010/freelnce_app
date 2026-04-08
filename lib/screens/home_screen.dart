@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:my_diary_app/freelance_model.dart';
-import 'package:my_diary_app/freelance_list.dart';
-import 'package:my_diary_app/preferences.dart';
-import 'package:my_diary_app/widgets/list_work.dart';
+import 'package:freelance_app/freelance_model.dart';
+import 'package:freelance_app/freelance_list.dart';
+import 'package:freelance_app/preferences.dart';
+import 'package:freelance_app/provider_theme.dart';
+import 'package:freelance_app/widgets/list_work.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,11 +15,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final themProvider = Provider.of<ProviderTheme>(context);
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('Фриланс биржа'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: (){
+              themProvider.toogleTheme();
+            }, 
+            icon: Icon(
+              themProvider.isDark ? Icons.light_mode : Icons.dark_mode
+            )
+            )
+        ],
       ),
       body: ListWork(),
       floatingActionButton: FloatingActionButton(

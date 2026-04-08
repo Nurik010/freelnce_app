@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_diary_app/freelance_model.dart';
+import 'package:freelance_app/freelance_model.dart';
+import 'package:freelance_app/preferences.dart';
 
 class WorkDetailScreen extends StatefulWidget {
   Freelance freelance_detail;
@@ -50,8 +51,9 @@ class _EntyDetailScreenState extends State<WorkDetailScreen> {
             ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async{
           Navigator.pop(context, widget.freelance_detail);
+          await StorageService.saveAll();
         },
         child: Icon(Icons.delete),
       ),

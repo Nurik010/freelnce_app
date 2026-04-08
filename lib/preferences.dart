@@ -1,12 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:my_diary_app/freelance_list.dart';
-import 'package:my_diary_app/freelance_model.dart';
+import 'package:freelance_app/freelance_list.dart';
+import 'package:freelance_app/freelance_model.dart';
 
 class StorageService {
   static SharedPreferences? _prefs;
+  static const String _themKey = 'theme_mode';
   
-  // Инициализация (вызвать в main.dart)
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
@@ -27,7 +27,7 @@ class StorageService {
     }).toList();
     
     await _prefs!.setStringList('freelance_data', jsonList);
-    print('Сохранено ${jsonList.length} записей'); // для отладки
+
   }
   
 
@@ -50,25 +50,21 @@ class StorageService {
         ));
       }
       
-      print('Загружено ${freelance.length} записей'); // для отладки
+      print('Загружено ${freelance.length} записей');
     } else {
-      // Если данных нет, оставляем начальные
       print('Нет сохранённых данных, используем начальные');
     }
   }
-  
-  // Очистить все данные
-  static Future<void> clearAll() async {
+
+  static Future<void> saveThemMode(bool isDarkThem) async{
     if (_prefs == null) await init();
-    await _prefs!.remove('freelance_data');
-    freelance.clear();
-    print('Все данные удалены');
+    await _prefs!.setBool(_themKey, isDarkThem);
   }
   
-  // Проверить, есть ли сохранённые данные
-  static Future<bool> hasData() async {
+  static Future<bool> loadThemMode() async {
     if (_prefs == null) await init();
-    List<String>? data = _prefs!.getStringList('freelance_data');
-    return data != null && data.isNotEmpty;
+    bool? isDarkThem = await _prefs!.getBool(_themKey);
+    return isDarkThem ?? false;
   }
+
 }
